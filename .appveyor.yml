@@ -6,11 +6,13 @@ environment:
   matrix:
     - ARCH: x86
       CPUBIT: 32
+      MSARCH: Win32
       CYGWIN: C:\Cygwin
       CYGSH: C:\Cygwin\bin\bash -lc
       VCVARS: vcvars32.bat
       GENERATOR: "Visual Studio 14 2015"
     - ARCH: x86_64
+      MSARCH: x64
       CPUBIT: 64
       CYGWIN: C:\Cygwin64
       CYGSH: C:\Cygwin64\bin\bash -lc
@@ -80,7 +82,9 @@ image:
 before_build:
   - V:
   - cd V:\hunspell-1.3.3\src\win_api
-  - MSBuild "Hunspell.sln" -property:Configuration=Release -target:libhunspell
+  - MSBuild "Hunspell.sln" -property:Configuration=Release -target:libhunspell -property:Platform=%MSARCH%
+  - cd "%APPVEYOR_BUILD_FOLDER%"
+  - echo %cd%
   # - cd C:\
   # - mkdir downloads
   # - cd downloads
