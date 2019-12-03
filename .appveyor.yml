@@ -42,7 +42,7 @@ install:
   # - "%CYGSH% 'ocaml-env exec -- ocamlc -config'"
   - cd "%APPVEYOR_BUILD_FOLDER%"
   - if not exist dependenciesbuild mkdir dependenciesbuild
-  - subst V: "%APPVEYOR_BUILD_FOLDER%"\dependenciesbuild
+  - subst V: "%APPVEYOR_BUILD_FOLDER%\\dependenciesbuild"
   - cmd: >-
       subst V: dependenciesbuild
 
