@@ -1,4 +1,3 @@
-
 cache:
   - C:\downloads\hunspell-1.3.3.tar.gz
 
@@ -48,9 +47,10 @@ install:
 
   - cd V:\
   - 7z -y x C:\downloads\hunspell-1.3.3.tar.gz -so | 7z x -aoa -si -ttar
-  - cd hunspell-1.3.3/src/win_api
+  - cd V:\hunspell-1.3.3/src/win_api
   - devenv "Hunspell.sln" /upgrade
   - dir /s .
+  - cd "%APPVEYOR_BUILD_FOLDER%"
   # - if not exist ocpwin mkdir ocpwin
   # - cd ocpwin
   # - echo get "%OCPWIN_ARCHIVE%" from "%OCPWIN_URL%"
@@ -71,6 +71,8 @@ image:
 #  - Visual Studio 2017
 
 before_build:
+  - cd V:\hunspell-1.3.3/src/win_api
+  - MSBuild "Hunspell.sln" -property:Configuration=Release
   # - cd C:\
   # - mkdir downloads
   # - cd downloads
