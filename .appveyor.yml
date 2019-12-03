@@ -42,7 +42,9 @@ install:
   # - "%CYGSH% 'ocaml-env exec -- ocamlc -config'"
   - cd "%APPVEYOR_BUILD_FOLDER%"
   - if not exist dependenciesbuild mkdir dependenciesbuild
-  - subst V: dependenciesbuild
+  - subst V: "%APPVEYOR_BUILD_FOLDER%"\dependenciesbuild
+  - cmd: >-
+      subst V: dependenciesbuild
   - cd V:\
   - 7z -y x C:\downloads\hunspell-1.3.3.tar.gz -so | 7z x -aoa -si -ttar
   # - if not exist ocpwin mkdir ocpwin
