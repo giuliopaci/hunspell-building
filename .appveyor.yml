@@ -1,7 +1,9 @@
 
 cache:
+  - C:\downloads\hunspell-1.3.3.tar.gz
 
 environment:
+  fast_finish: true
   matrix:
     - ARCH: x86
       CPUBIT: 32
@@ -20,9 +22,14 @@ install:
   - "\"%VS140COMNTOOLS:~0,-14%VC\\bin\\\"%VCVARS%"
   - "echo \"%VS140COMNTOOLS:~0,-14%VC\\bin\\\"%VCVARS%"
   # Install Opam prerequisites
-  - "%CYGWIN%\\setup-%ARCH%.exe -qnNdO -R %CYGWIN% -s http://cygwin.mirror.constant.com -l %CYGWIN%/var/cache/setup -P patch -P unzip -P curl"
-  # Install Opam
+  # - "%CYGWIN%\\setup-%ARCH%.exe -qnNdO -R %CYGWIN% -s http://cygwin.mirror.constant.com -l %CYGWIN%/var/cache/setup -P patch -P unzip -P curl"
+  # Get sources
   - cd C:\
+  - if not exist downloads mkdir downloads
+  - cd downloads
+  - if not exist hunspell-1.3.3.tar.gz curl -L 'https://sourceforge.net/projects/hunspell/files/Hunspell/1.3.3/hunspell-1.3.3.tar.gz' -O
+  # Install Opam
+  # - cd C:\
   # - if not exist ocaml mkdir ocaml
   # - cd ocaml
   # - if not exist opam%CPUBIT%.tar.xz curl -L -O https://github.com/fdopen/opam-repository-mingw/releases/download/0.0.0.1/opam%CPUBIT%.tar.xz
@@ -34,6 +41,10 @@ install:
   # - "%CYGSH% 'cat ~/.opam/opam-init/*.sh'"
   # - "%CYGSH% 'ocaml-env exec -- ocamlc -config'"
   - cd "%APPVEYOR_BUILD_FOLDER%"
+  - if not exist dependenciesbuild mkdir dependenciesbuild
+  - subst V: dependenciesbuild
+  - cd V:\
+  - 7z -y x C:\downloads\hunspell-1.3.3.tar.gz -so | 7z x -aoa -si -ttar
   # - if not exist ocpwin mkdir ocpwin
   # - cd ocpwin
   # - echo get "%OCPWIN_ARCHIVE%" from "%OCPWIN_URL%"
@@ -48,15 +59,16 @@ install:
 
 configuration:
   - Release
-#  - Debug
 
 image:
   - Visual Studio 2015
 #  - Visual Studio 2017
 
 before_build:
-  - mkdir tmp-build
-  - cd tmp-build
+  # - cd C:\
+  # - mkdir downloads
+  # - cd downloads
+  # - curl -L 'https://sourceforge.net/projects/hunspell/files/Hunspell/1.3.3/hunspell-1.3.3.tar.gz' -O
   # - "%CYGSH% 'cd `cygpath \"%APPVEYOR_BUILD_FOLDER%\"`; cd tmp-build; ocaml-env exec -- cmake .. -G \"%GENERATOR%\" -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_INSTALL_PREFIX:PATH=install -DCMAKE_OCaml_FLAGS=-verbose -DCMAKE_OCaml_LINKER_FLAGS=-verbose'"
 
 build_script:
