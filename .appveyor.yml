@@ -63,4 +63,4 @@ build_script:
   - dir /s .
 
 artifacts:
-  path: %APPVEYOR_BUILD_FOLDER%\*.whl
+  - path: "%APPVEYOR_BUILD_FOLDER%\\*.whl"
