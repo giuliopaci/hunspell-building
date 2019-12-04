@@ -4,19 +4,11 @@ cache:
 environment:
   fast_finish: true
   matrix:
-    - ARCH: x86
-      CPUBIT: 32
-      MSARCH: Win32
-      CYGWIN: C:\Cygwin
-      CYGSH: C:\Cygwin\bin\bash -lc
+    - MSARCH: Win32
       VCVARS: vcvars32.bat
       GENERATOR: "Visual Studio 14 2015"
       PYTHON: "C:\\Python36"
-    - ARCH: x86_64
-      MSARCH: x64
-      CPUBIT: 64
-      CYGWIN: C:\Cygwin64
-      CYGSH: C:\Cygwin64\bin\bash -lc
+    - MSARCH: x64
       VCVARS: amd64\vcvars64.bat
       GENERATOR: "Visual Studio 14 2015 Win64"
       PYTHON: "C:\\Python36-x64"
@@ -26,7 +18,7 @@ install:
   - "echo \"%VS140COMNTOOLS:~0,-14%VC\\bin\\\"%VCVARS%"
   # Install wheel
   - "%PYTHON%\\python.exe -m pip install wheel"
-  # get hunspell and prepare it for compilation
+  # get hunspell and prepare it for its compilation
   - cmd: >-
       C:
 
@@ -50,11 +42,9 @@ install:
   - copy %APPVEYOR_BUILD_FOLDER%\*.vcxproj .
   - devenv "Hunspell.sln" /upgrade
   - dir /s .
+  - "C:"
   - cd "%APPVEYOR_BUILD_FOLDER%"
   - echo %cd%
-
-configuration:
-  - Release
 
 image:
   - Visual Studio 2015
@@ -72,5 +62,6 @@ build_script:
   - "%PYTHON%\\python.exe -m pip wheel hunspell"
   - dir /s .
 
-#test_script:
-#  - "%CYGSH% 'cd `cygpath \"%APPVEYOR_BUILD_FOLDER%\"`; cd tmp-build; if ! ctest; then cat Testing/Temporary/LastTest.log; exit 1; fi'"
+artifacts:
+  - %APPVEYOR_BUILD_FOLDER%\*.whl
+  
