@@ -6,12 +6,40 @@ environment:
   matrix:
     - MSARCH: Win32
       VCVARS: vcvars32.bat
-      GENERATOR: "Visual Studio 14 2015"
+      PYTHON: "C:\\Python27"
+    - MSARCH: x64
+      VCVARS: amd64\vcvars64.bat
+      PYTHON: "C:\\Python27-x64"
+    - MSARCH: Win32
+      VCVARS: vcvars32.bat
+      PYTHON: "C:\\Python34"
+    - MSARCH: x64
+      VCVARS: amd64\vcvars64.bat
+      PYTHON: "C:\\Python34-x64"
+    - MSARCH: Win32
+      VCVARS: vcvars32.bat
+      PYTHON: "C:\\Python35"
+    - MSARCH: x64
+      VCVARS: amd64\vcvars64.bat
+      PYTHON: "C:\\Python35-x64"
+    - MSARCH: Win32
+      VCVARS: vcvars32.bat
       PYTHON: "C:\\Python36"
     - MSARCH: x64
       VCVARS: amd64\vcvars64.bat
-      GENERATOR: "Visual Studio 14 2015 Win64"
       PYTHON: "C:\\Python36-x64"
+    - MSARCH: Win32
+      VCVARS: vcvars32.bat
+      PYTHON: "C:\\Python37"
+    - MSARCH: x64
+      VCVARS: amd64\vcvars64.bat
+      PYTHON: "C:\\Python37-x64"
+    - MSARCH: Win32
+      VCVARS: vcvars32.bat
+      PYTHON: "C:\\Python38"
+    - MSARCH: x64
+      VCVARS: amd64\vcvars64.bat
+      PYTHON: "C:\\Python38-x64"
 
 install:
   - "\"%VS140COMNTOOLS:~0,-14%VC\\bin\\\"%VCVARS%"
