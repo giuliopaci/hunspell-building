@@ -59,6 +59,8 @@ before_build:
   - echo %cd%
 
 build_script:
+  - "C:"
+  - cd "%APPVEYOR_BUILD_FOLDER%"
   - "%PYTHON%\\python.exe -m pip wheel hunspell"
   - dir /s .
 
